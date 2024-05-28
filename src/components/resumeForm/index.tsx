@@ -1,5 +1,11 @@
+import PersonalDetails from "./PersonalDetails";
+
 const ResumeForm = () => {
-  return <div>ResumeForm</div>;
+  return (
+    <div>
+      <PersonalDetails />
+    </div>
+  );
 };
 
 export default ResumeForm;

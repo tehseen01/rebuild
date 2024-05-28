@@ -1,9 +1,22 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import Providers from "@/components/Providers";
 
-const inter = Inter({ subsets: ["latin"] });
+import { Bricolage_Grotesque } from "next/font/google";
+import { Libre_Franklin } from "next/font/google";
+import { cn } from "@/lib/utils";
+
+const caudex = Bricolage_Grotesque({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-grotesque",
+  weight: ["400", "700", "800", "600", "500", "300", "200"],
+});
+const libre_franklin = Libre_Franklin({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-libre_franklin",
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,8 +29,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
-      <body className={inter.className}>
+    <html lang="en" className="">
+      <body className={cn(caudex.variable, libre_franklin.variable)}>
         <Providers>{children}</Providers>
       </body>
     </html>

@@ -1,23 +1,23 @@
-import Resume from "@/components/resume";
-import ResumeForm from "@/components/resumeForm";
-import {
-  ResizableHandle,
-  ResizablePanel,
-  ResizablePanelGroup,
-} from "@/components/ui/resizable";
+import Hero from "@/components/landing/hero";
+import FeaturesSection from "@/components/landing/features";
+import Testimonials from "@/components/landing/testimonials";
+import Footer from "@/components/layout/footer";
+import Header from "@/components/layout/header";
+import Templates from "@/components/landing/templates";
+import FAQSection from "@/components/landing/faq";
 
 export default function Home() {
   return (
-    <main>
-      <ResizablePanelGroup direction="horizontal" className="min-h-screen">
-        <ResizablePanel minSize={25}>
-          <ResumeForm />
-        </ResizablePanel>
-        <ResizableHandle withHandle />
-        <ResizablePanel minSize={25} className="h-full">
-          <Resume />
-        </ResizablePanel>
-      </ResizablePanelGroup>
-    </main>
+    <div className="flex flex-col min-h-[100dvh]">
+      <Header />
+      <main className="flex-1">
+        <Hero />
+        <FeaturesSection />
+        <Templates />
+        <Testimonials />
+        <FAQSection />
+      </main>
+      <Footer />
+    </div>
   );
 }
