@@ -1,31 +1,43 @@
+import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { Button, buttonVariants } from "../ui/button";
+import { ArrowRight } from "lucide-react";
+import CustomChip from "../shared/custom-chip";
 
 const Hero = () => {
   return (
     <section className="w-full h-dvh">
-      <div className="grid mx-auto px-4 sm:px-6 md:px-10 md:grid-cols-2 pt-10">
-        <div className="self-center">
-          <h1 className="lg:leading-[0.85] text-3xl tracking-tight sm:text-4xl md:text-[4rem] font-extrabold">
-            Craft ATS friendly Resumes & Cover Letters that Land Interviews
+      <div className="grid mx-auto px-2 sm:px-6 md:px-10 md:grid-cols-2 pt-10 gap-4">
+        <div className="self-center space-y-4">
+          <Link
+            href="https://twitter.com/tehseen_type"
+            className={cn(
+              buttonVariants({ variant: "outline", size: "sm" }),
+              "rounded-full px-4 bg-secondary"
+            )}
+            target="_blank"
+          >
+            <span className="mr-3">🎉</span> The Ultimate Resume Builder
+          </Link>
+          <h1 className="md:leading-[0.85]  text-5xl tracking-tight md:text-[4rem] font-extrabold">
+            Build <CustomChip>ATS</CustomChip>-beating resume that get you
+            <CustomChip>noticed</CustomChip>.
           </h1>
-          <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
+          <p className="mx-auto text-secondary-foreground md:text-xl">
             Our resume builder makes it easy to craft a standout resume that
             showcases your skills and experience.
           </p>
-          <div className="space-x-4 mt-6">
-            <Link
-              className="inline-flex h-9 items-center justify-center rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
-              href="#"
-            >
-              Get Started
+          <Button className="mt-6" size={"lg"}>
+            <Link href="/builder" className="flex gap-2 items-center">
+              Create My Resume <ArrowRight size={20} />
             </Link>
-          </div>
+          </Button>
         </div>
         <div className="flex items-center justify-center">
           <Image
-            src={"/images/hero.svg"}
+            src={"/images/job-application-2.svg"}
             width={500}
             height={500}
             alt="hero section"

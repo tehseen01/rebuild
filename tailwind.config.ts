@@ -54,7 +54,7 @@ const config = {
         },
       },
       fontFamily: {
-        caudex: ["var(--font-grotesque)", "sans-serif"],
+        grotesque: ["var(--font-grotesque)", "sans-serif"],
         franklin: ["var(--font-libre_franklin)", "sans-serif"],
       },
       borderRadius: {

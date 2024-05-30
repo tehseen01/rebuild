@@ -1,13 +1,29 @@
-import React from "react";
-import { Card } from "../ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+"use client";
+
+import React, { useState } from "react";
+import { testimonials } from "@/config/landing";
+import Image from "next/image";
+import useMediaQuery from "@/hooks/use-media-query";
+import { Button } from "../ui/button";
+import CustomChip from "../shared/custom-chip";
 
 const Testimonials = () => {
+  const { isMobile } = useMediaQuery();
+
+  const [expendReview, setExpendReview] = useState(false);
+
+  const reviewsLength = isMobile
+    ? expendReview
+      ? testimonials.length
+      : 3
+    : testimonials.length;
+
   return (
-    <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800">
+    <section className="w-full py-12 md:py-20">
       <div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6">
         <div className="space-y-3">
-          <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
+          <CustomChip className="px-3 py-1">Testimonials</CustomChip>
+          <h2 className="text-3xl font-bold tracking-tighter md:text-5xl/tight">
             What Our Users Say
           </h2>
           <p className="mx-auto max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
@@ -15,68 +31,45 @@ const Testimonials = () => {
             resume builder.
           </p>
         </div>
-        <div className="grid w-full max-w-5xl grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
-          <Card className="bg-white dark:bg-gray-950 p-6 shadow-sm transition-all hover:shadow-md">
-            <div className="space-y-4">
-              <div className="flex items-center gap-2">
-                <Avatar>
-                  <AvatarImage src="/avatars/01.png" />
-                  <AvatarFallback>JD</AvatarFallback>
-                </Avatar>
-                <div>
-                  <p className="text-sm font-medium">John Doe</p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
-                    Software Engineer
-                  </p>
+        <div className="column-1 gap-5 space-y-5 md:columns-2 lg:columns-3 md:px-10 relative">
+          {testimonials.slice(0, reviewsLength).map((item) => (
+            <div
+              className="break-inside-avoid bg-white border rounded-2xl"
+              key={item.name}
+            >
+              <div className="relative">
+                <div className="flex flex-col px-4 py-5 sm:p-6">
+                  <div>
+                    <div className="relative mb-4 flex items-center gap-3">
+                      <span className="relative inline-flex size-10 shrink-0 items-center justify-center rounded-full text-base">
+                        <Image
+                          width={100}
+                          height={100}
+                          className="size-full rounded-full border"
+                          src={item.image}
+                          alt={item.name}
+                        />
+                      </span>
+                      <div>
+                        <p className="text-sm font-semibold text-foreground">
+                          {item.name}
+                        </p>
+                        <p className="text-sm text-muted-foreground">
+                          {item.job}
+                        </p>
+                      </div>
+                    </div>
+                    <q className="text-muted-foreground">{item.review}</q>
+                  </div>
                 </div>
               </div>
-              <p className="text-gray-500 dark:text-gray-400">
-                "The resume builder made it so easy to create a
-                professional-looking resume. I was able to land my dream job in
-                no time!"
-              </p>
             </div>
-          </Card>
-          <Card className="bg-white dark:bg-gray-950 p-6 shadow-sm transition-all hover:shadow-md">
-            <div className="space-y-4">
-              <div className="flex items-center gap-2">
-                <Avatar>
-                  <AvatarImage src="/avatars/02.png" />
-                  <AvatarFallback>SA</AvatarFallback>
-                </Avatar>
-                <div>
-                  <p className="text-sm font-medium">Sarah Anderson</p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
-                    Marketing Manager
-                  </p>
-                </div>
-              </div>
-              <p className="text-gray-500 dark:text-gray-400">
-                "I was struggling to format my resume, but the resume builder
-                made it a breeze. I'm so impressed with the results!"
-              </p>
+          ))}
+          {isMobile && !expendReview && (
+            <div className="absolute bottom-0 left-0 w-full flex items-center justify-center bg-gradient-to-t from-background to-transparent py-10">
+              <Button onClick={() => setExpendReview(true)}>Expend</Button>
             </div>
-          </Card>
-          <Card className="bg-white dark:bg-gray-950 p-6 shadow-sm transition-all hover:shadow-md">
-            <div className="space-y-4">
-              <div className="flex items-center gap-2">
-                <Avatar>
-                  <AvatarImage src="/avatars/03.png" />
-                  <AvatarFallback>MR</AvatarFallback>
-                </Avatar>
-                <div>
-                  <p className="text-sm font-medium">Michael Rodriguez</p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
-                    Project Manager
-                  </p>
-                </div>
-              </div>
-              <p className="text-gray-500 dark:text-gray-400">
-                "I was able to create a resume that really showcased my skills
-                and experience. The resume builder is a game-changer!"
-              </p>
-            </div>
-          </Card>
+          )}
         </div>
       </div>
     </section>

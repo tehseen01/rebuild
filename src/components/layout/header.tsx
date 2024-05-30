@@ -1,60 +1,80 @@
+"use client";
+
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
+import { Button } from "../ui/button";
+import { Menu, X } from "lucide-react";
 
 const Header = () => {
+  const [showNav, setShowNav] = useState(false);
+
   return (
-    <header className="px-4 lg:px-6 h-14 flex items-center">
-      <Link className="flex items-center justify-center" href="#">
-        <MountainIcon className="h-6 w-6" />
-        <span className="sr-only">Resume Builder</span>
+    <header className="px-2 sm:px-6 md:px-10 h-14 flex items-center border-b">
+      <Link className="flex items-center justify-center z-20" href="/">
+        <span className="text-xl font-bold font-grotesque">ReBuild</span>
       </Link>
-      <nav className="ml-auto flex gap-4 sm:gap-6">
-        <Link
-          className="text-sm font-medium hover:underline underline-offset-4"
-          href="#"
-        >
-          Features
-        </Link>
-        <Link
-          className="text-sm font-medium hover:underline underline-offset-4"
-          href="#"
-        >
-          Pricing
-        </Link>
-        <Link
-          className="text-sm font-medium hover:underline underline-offset-4"
-          href="#"
-        >
-          About
-        </Link>
-        <Link
-          className="text-sm font-medium hover:underline underline-offset-4"
-          href="#"
-        >
-          Contact
-        </Link>
+      <nav className="ml-auto flex gap-4 sm:gap-6 max-md:hidden">
+        {links.map((link, idx) => (
+          <Link
+            key={idx}
+            className="text-secondary-foreground hover:underline underline-offset-[22px]"
+            href={link.path}
+          >
+            {link.label}
+          </Link>
+        ))}
       </nav>
+      <div className="ml-auto z-20 md:hidden">
+        <Button
+          variant={"ghost"}
+          size={"icon"}
+          onClick={() => setShowNav(!showNav)}
+          className="size-8"
+        >
+          {!showNav ? <Menu size={20} /> : <X size={20} />}
+        </Button>
+      </div>
+      {showNav && (
+        <div
+          className="fixed inset-0 bg-black/30 z-10 md:hidden"
+          onClick={(e) => e.target === e.currentTarget && setShowNav(false)}
+        >
+          <div className="w-10/12 bg-background h-dvh pt-[3.5rem]">
+            <div className=" border-t px-2 pt-5">
+              <ul className="flex items-center flex-col ">
+                {links.map((link, idx) => (
+                  <li key={idx} className="w-full">
+                    <Link
+                      onClick={() => setShowNav(false)}
+                      href={link.path}
+                      className="hover:bg-gray-200 w-full block p-2 rounded-lg"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
     </header>
   );
 };
 
 export default Header;
 
-function MountainIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
-    </svg>
-  );
-}
+const links = [
+  {
+    label: "Create Resume",
+    path: "/builder",
+  },
+  {
+    label: "Cover Letter",
+    path: "/letter",
+  },
+  {
+    label: "Feedback",
+    path: "",
+  },
+];

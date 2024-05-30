@@ -5,6 +5,7 @@ import Providers from "@/components/Providers";
 import { Bricolage_Grotesque } from "next/font/google";
 import { Libre_Franklin } from "next/font/google";
 import { cn } from "@/lib/utils";
+import { TailwindIndicator } from "@/components/tailwind-indicator";
 
 const caudex = Bricolage_Grotesque({
   subsets: ["latin"],
@@ -32,6 +33,7 @@ export default function RootLayout({
     <html lang="en" className="">
       <body className={cn(caudex.variable, libre_franklin.variable)}>
         <Providers>{children}</Providers>
+        <TailwindIndicator />
       </body>
     </html>
   );
