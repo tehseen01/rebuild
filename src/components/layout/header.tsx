@@ -4,12 +4,26 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { Button } from "../ui/button";
 import { Menu, X } from "lucide-react";
+import { cn } from "@/lib/utils";
+import useScrollPosition from "@/hooks/use-scroll-position";
 
 const Header = () => {
   const [showNav, setShowNav] = useState(false);
 
+  const { isHeaderFixed, prevScrollPos } = useScrollPosition({
+    initialPosition: 0,
+    threshold: 50,
+  });
+
   return (
-    <header className="px-2 sm:px-6 md:px-10 h-14 flex items-center border-b">
+    <header
+      className={cn(
+        "px-2 sm:px-6 md:px-10 h-14 flex items-center border-b transition-transform delay-150",
+        isHeaderFixed
+          ? "sticky top-0 inset-x-0 backdrop-blur-md z-20 translate-y-0"
+          : prevScrollPos > 0 && "-translate-y-full"
+      )}
+    >
       <Link className="flex items-center justify-center z-20" href="/">
         <span className="text-xl font-bold font-grotesque">ReBuild</span>
       </Link>
@@ -34,30 +48,36 @@ const Header = () => {
           {!showNav ? <Menu size={20} /> : <X size={20} />}
         </Button>
       </div>
-      {showNav && (
+      <div
+        className={cn(
+          "fixed inset-0 bg-black/30 z-10 md:hidden transition-opacity",
+          showNav ? "opacity-100" : "opacity-0 pointer-events-none"
+        )}
+        onClick={(e) => e.target === e.currentTarget && setShowNav(false)}
+      >
         <div
-          className="fixed inset-0 bg-black/30 z-10 md:hidden"
-          onClick={(e) => e.target === e.currentTarget && setShowNav(false)}
+          className={cn(
+            "w-10/12 bg-background h-dvh pt-[3.5rem] transition-transform",
+            showNav ? "translate-x-0" : "-translate-x-full"
+          )}
         >
-          <div className="w-10/12 bg-background h-dvh pt-[3.5rem]">
-            <div className=" border-t px-2 pt-5">
-              <ul className="flex items-center flex-col ">
-                {links.map((link, idx) => (
-                  <li key={idx} className="w-full">
-                    <Link
-                      onClick={() => setShowNav(false)}
-                      href={link.path}
-                      className="hover:bg-gray-200 w-full block p-2 rounded-lg"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <div className=" border-t px-2 pt-5">
+            <ul className="flex items-center flex-col ">
+              {links.map((link, idx) => (
+                <li key={idx} className="w-full">
+                  <Link
+                    onClick={() => setShowNav(false)}
+                    href={link.path}
+                    className="hover:bg-gray-200 w-full block p-2 rounded-lg"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
-      )}
+      </div>
     </header>
   );
 };
