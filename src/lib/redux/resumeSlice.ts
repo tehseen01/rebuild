@@ -1,20 +1,29 @@
-import { resumeTemplate } from "@/config/templates";
-import { ResumeData } from "@/types";
-import { createSlice } from "@reduxjs/toolkit";
+import { resumeTemplate } from '@/config/templates';
+import { PersonalDetails, ResumeData } from '@/types';
+import { createSlice } from '@reduxjs/toolkit';
 
 interface InitialState {
-  resume: ResumeData;
+    resume: ResumeData;
+    personalDetails: PersonalDetails;
 }
 
 const initialState: InitialState = {
-  resume: resumeTemplate,
+    resume: resumeTemplate,
+    personalDetails: resumeTemplate.personalDetails,
 };
 
 const resumeSlice = createSlice({
-  name: "resume",
-  initialState,
-  reducers: {},
+    name: 'resume',
+    initialState,
+    reducers: {
+        editPersonalDetails: (state, action) => {
+            state.personalDetails = {
+                ...state.personalDetails,
+                ...action.payload,
+            };
+        },
+    },
 });
 
-export const {} = resumeSlice.actions;
+export const { editPersonalDetails } = resumeSlice.actions;
 export default resumeSlice.reducer;
