@@ -11,13 +11,14 @@ export const resumeTemplate: ResumeData = {
         github: 'https://github.com/johndoe',
         website: 'https://johndoe.com',
         address: 'San Francisco, CA',
+        twitter: 'https://twitter.com/johndoe',
     },
     summary:
         'Experienced software engineer with a passion for creating high-quality, scalable applications. Proficient in React, Node.js, and Java. Committed to delivering innovative solutions and continuous learning.',
     experience: [
         {
             companyName: 'Acme Inc.',
-            startDate: '2020-06-01',
+            startDate: '2020-06',
             endDate: 'Present',
             jobTitle: 'Senior Software Engineer',
             jobLocation: 'San Francisco, CA',
@@ -30,8 +31,8 @@ export const resumeTemplate: ResumeData = {
         },
         {
             companyName: 'TechCorp',
-            startDate: '2017-02-01',
-            endDate: '2020-05-31',
+            startDate: '2017-02',
+            endDate: '2020-05',
             jobTitle: 'Software Engineer',
             jobLocation: 'New York, NY',
             bulletPoints: [

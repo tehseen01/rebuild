@@ -27,57 +27,80 @@ const Resume = () => {
                             {personalDetails.lastName}
                         </h2>
                         <div className="flex items-center justify-center gap-4">
-                            <div className="flex items-center gap-1">
-                                <Icons.phone size={18} className="size-4" />
-                                <span>{personalDetails.phone}</span>
-                            </div>
-                            <div className="flex items-center gap-1">
-                                <Icons.email size={18} className="size-4" />{' '}
-                                <span>{personalDetails.email}</span>
-                            </div>
-                            <div className="flex items-center gap-1">
-                                <Icons.location className="size-4" size={18} />{' '}
-                                <span>{personalDetails.address}</span>
-                            </div>
-                            <div></div>
+                            {personalDetails.phone && (
+                                <div className="flex items-center gap-1">
+                                    <Icons.phone size={18} className="size-4" />
+                                    <span>{personalDetails.phone}</span>
+                                </div>
+                            )}
+                            {personalDetails.email && (
+                                <Link
+                                    href={`mailto:${personalDetails.email}`}
+                                    className="flex items-center gap-1"
+                                >
+                                    <Icons.email size={18} className="size-4" />{' '}
+                                    <span>{personalDetails.email}</span>
+                                </Link>
+                            )}
+                            {personalDetails.address && (
+                                <div className="flex items-center gap-1">
+                                    <Icons.location
+                                        className="size-4"
+                                        size={18}
+                                    />{' '}
+                                    <span>{personalDetails.address}</span>
+                                </div>
+                            )}
                         </div>
-                        <div className="flex items-center justify-center gap-4">
-                            <div className="flex items-center gap-1">
-                                <Link
-                                    className="flex items-center gap-1 underline underline-offset-2"
-                                    href={personalDetails.linkedin}
-                                >
-                                    <Icons.linkedIn className="size-4" />
-                                    <span>LinkedIn</span>
-                                </Link>
-                            </div>
-                            <div className="flex items-center gap-1">
-                                <Link
-                                    className="flex items-center gap-1 underline underline-offset-2"
-                                    href={''}
-                                >
-                                    <Icons.gitHub className="size-4" />
-                                    Github
-                                </Link>
-                            </div>
-                            <div className="flex items-center gap-1">
-                                <Link
-                                    className="flex items-center gap-1 underline underline-offset-2"
-                                    href={''}
-                                >
-                                    <Icons.portfolio className="size-4" />
-                                    Portfolio
-                                </Link>
-                            </div>
-                            <div className="flex items-center gap-1">
-                                <Link
-                                    className="flex items-center gap-1 underline underline-offset-2"
-                                    href={''}
-                                >
-                                    <Icons.twitter className="size-4" />
-                                    Portfolio
-                                </Link>
-                            </div>
+                        <div className="flex flex-wrap items-center justify-center gap-x-4">
+                            {personalDetails.linkedin && (
+                                <div className="flex items-center gap-1">
+                                    <Link
+                                        className="flex items-center gap-1 underline underline-offset-2"
+                                        href={personalDetails.linkedin}
+                                        target="_blank"
+                                    >
+                                        <Icons.linkedIn className="size-4" />
+                                        <span>{personalDetails.linkedin}</span>
+                                    </Link>
+                                </div>
+                            )}
+                            {personalDetails.github && (
+                                <div className="flex items-center gap-1">
+                                    <Link
+                                        className="flex items-center gap-1 underline underline-offset-2"
+                                        href={personalDetails.github}
+                                        target="_blank"
+                                    >
+                                        <Icons.gitHub className="size-4" />
+                                        <span>{personalDetails.github}</span>
+                                    </Link>
+                                </div>
+                            )}
+                            {personalDetails.website && (
+                                <div className="flex items-center gap-1">
+                                    <Link
+                                        className="flex items-center gap-1 underline underline-offset-2"
+                                        href={personalDetails.website}
+                                        target="_blank"
+                                    >
+                                        <Icons.portfolio className="size-4" />
+                                        <span>{personalDetails.website}</span>
+                                    </Link>
+                                </div>
+                            )}
+                            {personalDetails.twitter && (
+                                <div className="flex items-center gap-1">
+                                    <Link
+                                        className="flex items-center gap-1 underline underline-offset-2"
+                                        href={personalDetails.twitter}
+                                        target="_blank"
+                                    >
+                                        <Icons.twitter className="size-4" />
+                                        {personalDetails.twitter}
+                                    </Link>
+                                </div>
+                            )}
                         </div>
                     </div>
                     {/* ===SUMMERY=== */}

@@ -26,9 +26,11 @@ export type PersonalDetails = {
     github: string;
     website: string;
     address: string;
+    twitter: string;
 };
 
 export type Experience = {
+    id: string;
     companyName: string;
     startDate: string; // Format: "YYYY-MM-DD"
     endDate: string | 'Present'; // Format: "YYYY-MM-DD" or "Present"

@@ -13,13 +13,13 @@ export default function Home() {
                 direction="horizontal"
                 className="min-h-screen"
             >
-                <ResizablePanel minSize={25} defaultSize={40}>
+                <ResizablePanel minSize={25} defaultSize={50}>
                     <ResumeForm />
                 </ResizablePanel>
                 <ResizableHandle withHandle />
                 <ResizablePanel
                     minSize={25}
-                    defaultSize={60}
+                    defaultSize={50}
                     className="h-full"
                 >
                     <Resume />
