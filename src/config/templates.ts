@@ -17,6 +17,7 @@ export const resumeTemplate: ResumeData = {
         'Experienced software engineer with a passion for creating high-quality, scalable applications. Proficient in React, Node.js, and Java. Committed to delivering innovative solutions and continuous learning.',
     experience: [
         {
+            id: '1',
             companyName: 'Acme Inc.',
             startDate: '2020-06',
             endDate: 'Present',
@@ -30,6 +31,7 @@ export const resumeTemplate: ResumeData = {
             ],
         },
         {
+            id: '2',
             companyName: 'TechCorp',
             startDate: '2017-02',
             endDate: '2020-05',
@@ -65,15 +67,15 @@ export const resumeTemplate: ResumeData = {
         },
     ],
     skills: [
-        'React',
-        'Node.js',
-        'JavaScript',
-        'Java',
-        'Spring Framework',
-        'RESTful APIs',
-        'Git',
-        'Agile Methodologies',
-        'Test-Driven Development',
+        { id: '1', label: 'React', level: 'Expert' },
+        { id: '2', label: 'Node.js', level: 'Expert' },
+        { id: '3', label: 'JavaScript', level: 'Expert' },
+        { id: '4', label: 'Java', level: 'Expert' },
+        { id: '5', label: 'Spring Framework', level: 'Expert' },
+        { id: '6', label: 'RESTful APIs', level: 'Expert' },
+        { id: '7', label: 'Git', level: 'Expert' },
+        { id: '8', label: 'Agile Methodologies', level: 'Expert' },
+        { id: '9', label: 'Test-Driven Development', level: 'Expert' },
     ],
     languages: ['English (Native)', 'Spanish (Fluent)'],
     certifications: [

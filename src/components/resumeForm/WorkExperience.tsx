@@ -10,25 +10,24 @@ import { ChangeEvent, useState } from 'react';
 import { cn } from '@/lib/utils';
 import {
     addWorkExperienceField,
+    deleteWorkExperience,
     editWorkExperience,
 } from '@/lib/redux/resumeSlice';
+import { Textarea } from '../ui/textarea';
+import useCollapsible from '@/hooks/useCollapsible';
 
 const WorkExperience = () => {
-    const [extendExp, setExtendExp] = useState<number[]>([]);
-
     const dispatch = useAppDispatch();
     const { workExperience } = useAppSelector((state) => state.resume);
 
-    const handleExtendExp = (idx: number) => {
-        setExtendExp((prev) =>
-            prev.includes(idx) ? prev.filter((p) => p !== idx) : [...prev, idx],
-        );
-    };
+    const { expend, handleExpend } = useCollapsible();
 
-    const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const handleInputChange = (
+        e: ChangeEvent<HTMLInputElement>,
+        id: string,
+    ) => {
         const { name, value } = e.target;
-        dispatch(editWorkExperience({ [name]: value }));
-        console.log(value);
+        dispatch(editWorkExperience({ [name]: value, id }));
     };
 
     return (
@@ -60,13 +59,13 @@ const WorkExperience = () => {
                                     size={'icon'}
                                     variant={'ghost'}
                                     radius={'full'}
-                                    onClick={() => handleExtendExp(idx)}
+                                    onClick={() => handleExpend(idx)}
                                 >
                                     <ChevronDown
                                         size={20}
                                         className={cn(
                                             'transition-transform',
-                                            !extendExp.includes(idx)
+                                            expend.includes(idx)
                                                 ? 'rotate-180'
                                                 : '',
                                         )}
@@ -77,12 +76,15 @@ const WorkExperience = () => {
                                     size={'icon'}
                                     variant={'ghost'}
                                     radius={'full'}
+                                    onClick={() =>
+                                        dispatch(deleteWorkExperience(exp.id))
+                                    }
                                 >
                                     <Trash size={20} />
                                 </Button>
                             </div>
                         </div>
-                        {!extendExp.includes(idx) && (
+                        {expend.includes(idx) && (
                             <div className="space-y-4">
                                 <div className="flex items-center gap-4">
                                     <Label className="w-full space-y-2">
@@ -90,7 +92,9 @@ const WorkExperience = () => {
                                         <Input
                                             placeholder="Software developer"
                                             value={exp.jobTitle}
-                                            onChange={handleInputChange}
+                                            onChange={(e) =>
+                                                handleInputChange(e, exp.id)
+                                            }
                                             name="jobTitle"
                                         />
                                     </Label>
@@ -100,7 +104,9 @@ const WorkExperience = () => {
                                             placeholder="Google"
                                             name="companyName"
                                             value={exp.companyName}
-                                            onChange={handleInputChange}
+                                            onChange={(e) =>
+                                                handleInputChange(e, exp.id)
+                                            }
                                         />
                                     </Label>
                                 </div>
@@ -110,7 +116,9 @@ const WorkExperience = () => {
                                         placeholder="New delhi"
                                         name="jobLocation"
                                         value={exp.jobLocation}
-                                        onChange={handleInputChange}
+                                        onChange={(e) =>
+                                            handleInputChange(e, exp.id)
+                                        }
                                     />
                                 </Label>
                                 <div className="flex gap-4">
@@ -120,7 +128,9 @@ const WorkExperience = () => {
                                             type="month"
                                             name="startDate"
                                             value={exp.startDate}
-                                            onChange={handleInputChange}
+                                            onChange={(e) =>
+                                                handleInputChange(e, exp.id)
+                                            }
                                         />
                                     </Label>
                                     <div className="flex flex-1 flex-col gap-3">
@@ -138,18 +148,44 @@ const WorkExperience = () => {
                                                     type="month"
                                                     name="endDate"
                                                     value={exp.endDate}
-                                                    onChange={handleInputChange}
+                                                    onChange={(e) =>
+                                                        handleInputChange(
+                                                            e,
+                                                            exp.id,
+                                                        )
+                                                    }
                                                 />
                                             )}
                                         </Label>
-                                        <Label className="flex items-center gap-3">
+                                        <Label className="flex cursor-pointer items-center gap-3">
                                             <Checkbox
+                                                onCheckedChange={(checked) =>
+                                                    dispatch(
+                                                        editWorkExperience({
+                                                            endDate: checked
+                                                                ? 'Present'
+                                                                : '',
+                                                            id: exp.id,
+                                                        }),
+                                                    )
+                                                }
                                                 checked={
                                                     exp.endDate === 'Present'
                                                 }
                                             />{' '}
                                             <span>Currently work here</span>
                                         </Label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p className="font-medium">Summery</p>
+                                    <div className="mt-2 rounded-md border">
+                                        <div className="h-10 border-b"></div>
+                                        <Textarea
+                                            rows={10}
+                                            placeholder="Enter your summery"
+                                            className="h-auto resize-none border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
+                                        />
                                     </div>
                                 </div>
                             </div>

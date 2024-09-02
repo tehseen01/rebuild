@@ -10,10 +10,16 @@ export type ResumeData = {
     experience: Experience[];
     education: Education[];
     projects: Project[];
-    skills: string[];
+    skills: Skill[];
     languages?: string[];
     certifications?: string[];
     interests?: string[];
+};
+
+export type Skill = {
+    id: string;
+    label: string;
+    level: 'Beginner' | 'Average' | 'Skillful' | 'Experienced' | 'Expert';
 };
 
 export type PersonalDetails = {

@@ -5,7 +5,9 @@ import Link from 'next/link';
 import { Icons } from '../shared/icons';
 
 const Resume = () => {
-    const { resume, personalDetails } = useAppSelector((state) => state.resume);
+    const { resume, personalDetails, workExperience, skills } = useAppSelector(
+        (state) => state.resume,
+    );
 
     return (
         <div className="h-screen w-full overflow-y-auto bg-background p-6">
@@ -109,35 +111,40 @@ const Resume = () => {
                     </div>
                     {/* ===EXPERIENCE=== */}
                     <div>
-                        <h3 className="border-b border-black/70 text-2xl">
-                            Experience
-                        </h3>
+                        {workExperience.length > 0 && (
+                            <h3 className="border-b border-black/70 text-2xl">
+                                Experience
+                            </h3>
+                        )}
                         <div>
-                            {resume.experience.map((exp, idx) => (
-                                <div key={idx} className="pb-2">
-                                    <div className="flex items-center justify-between">
-                                        <p className="text-base font-semibold">
-                                            {exp.jobTitle}
-                                        </p>{' '}
-                                        <span className="text-sm italic">
-                                            {exp.startDate} - {exp.endDate}
-                                        </span>
+                            {workExperience.length > 0 &&
+                                workExperience.map((exp, idx) => (
+                                    <div key={idx} className="pb-2">
+                                        <div className="flex items-center justify-between">
+                                            <p className="text-base font-semibold">
+                                                {exp.jobTitle}
+                                            </p>{' '}
+                                            <span className="text-sm italic">
+                                                {exp.startDate} - {exp.endDate}
+                                            </span>
+                                        </div>
+                                        <div className="flex items-center justify-between">
+                                            <p className="text-base">
+                                                {exp.companyName}
+                                            </p>{' '}
+                                            <span className="italic">
+                                                {exp.jobLocation}
+                                            </span>
+                                        </div>
+                                        <ul className="list-inside list-disc pl-3">
+                                            {exp.bulletPoints.map(
+                                                (point, idx) => (
+                                                    <li key={idx}>{point}</li>
+                                                ),
+                                            )}
+                                        </ul>
                                     </div>
-                                    <div className="flex items-center justify-between">
-                                        <p className="text-base">
-                                            {exp.companyName}
-                                        </p>{' '}
-                                        <span className="italic">
-                                            {exp.jobLocation}
-                                        </span>
-                                    </div>
-                                    <ul className="list-inside list-disc pl-3">
-                                        {exp.bulletPoints.map((point, idx) => (
-                                            <li key={idx}>{point}</li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            ))}
+                                ))}
                         </div>
                     </div>
                     {/* ===EDUCATIONS=== */}
@@ -181,18 +188,20 @@ const Resume = () => {
                         </div>
                     </div>
                     {/* ===SKILLS=== */}
-                    <div>
-                        <h3 className="border-b border-black/70 text-2xl">
-                            Skills
-                        </h3>
-                        <div className="flex flex-wrap items-center gap-2">
-                            {resume.skills.map((skill, idx) => (
-                                <div key={idx}>
-                                    <span>{skill}, </span>
-                                </div>
-                            ))}
+                    {skills.length > 0 && (
+                        <div>
+                            <h3 className="border-b border-black/70 text-2xl">
+                                Skills
+                            </h3>
+                            <div className="flex flex-wrap items-center gap-2">
+                                {skills.map((skill) => (
+                                    <div key={skill.id}>
+                                        <span>{skill.label}, </span>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
-                    </div>
+                    )}
                 </div>
             </div>
         </div>
