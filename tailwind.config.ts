@@ -16,8 +16,8 @@ export default {
           xl: "1.5rem",
         },
         screens: {
-          "xl": "1400px",
-        }
+          xl: "1535px",
+        },
       },
       colors: {
         background: "hsl(var(--background))",

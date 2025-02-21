@@ -1,10 +1,11 @@
-import { Header } from "@/components/layout";
+import { Footer, Header } from "@/components/layout";
 
 const PublicLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <Header />
       {children}
+      <Footer />
     </>
   );
 };
